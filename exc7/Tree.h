@@ -1,9 +1,9 @@
 #ifndef H_TREE
 #define H_TREE
-#define SIZESTR 10
-#define SIZE 20
-typedef char* KeyType;
-typedef char* ValueType;
+#define SIZESTR 10 //макрос длины строки 
+#define SIZE 20 //макрос количества элементов в дереве
+typedef char* KeyType; //ключ
+typedef char* ValueType; //значение
 typedef struct _TreeNode {
     KeyType key;
     ValueType value;
