@@ -2,18 +2,18 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-void PrintTree(TreeNode* root, int level) { //классический рекурсивный вывод дерева
+void PrintTree(TreeNode* root, int level) {//РєР»Р°СЃСЃРёС‡РµСЃРєРёР№ СЂРµРєСѓСЂСЃРёРІРЅС‹Р№ РІС‹РІРѕРґ РґРµСЂРµРІР°
     if (root)
     {
-        PrintTree(root->left, level + 1); //сначала левые части
+        PrintTree(root->left, level + 1); //СЃРЅР°С‡Р°Р»Р° Р»РµРІС‹Рµ С‡Р°СЃС‚Рё
         for (int i = 0; i < level; i++) {
             printf("\t");
         }
         puts(root->key);
-        PrintTree(root->right, level + 1); //потом правые
+        PrintTree(root->right, level + 1); //РїРѕС‚РѕРј РїСЂР°РІС‹Рµ
     }
 }
-TreeNode* InitTreeNode(KeyType key, ValueType value) {//конструктор Tree*
+TreeNode* InitTreeNode(KeyType key, ValueType value) {//РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Tree
     TreeNode* node = (TreeNode*)malloc(sizeof(TreeNode));
     node->key = key;
     node->value = value;
@@ -53,7 +53,7 @@ ValueType GetValueByKey(Tree* tree, KeyType key) {
     }
 
 }
-void InsertInTreeNode(Tree* tree, TreeNode* newNode) { //вставка подчасти дерева с информацией в дерево
+void InsertInTreeNode(Tree* tree, TreeNode* newNode) {//РІСЃС‚Р°РІРєР° РїРѕРґС‡Р°СЃС‚Рё РґРµСЂРµРІР° СЃ РёРЅС„РѕСЂРјР°С†РёРµР№ РІ РґРµСЂРµРІРѕ
     TreeNode* currentNode = tree->root;
     if (currentNode == 0) {
         tree->root = newNode;
@@ -63,7 +63,7 @@ void InsertInTreeNode(Tree* tree, TreeNode* newNode) { //вставка подчасти дерева
         return 0;
     }
     while (1) {
-        if (strcmp(currentNode->key, newNode->key) > 0) {//сравнение двух строк: Левая больше Правой строки?
+        if (strcmp(currentNode->key, newNode->key) > 0) {//СЃСЂР°РІРЅРµРЅРёРµ РґРІСѓС… СЃС‚СЂРѕРє: Р›РµРІР°СЏ Р±РѕР»СЊС€Рµ РџСЂР°РІРѕР№ СЃС‚СЂРѕРєРё?
             if (currentNode->left != 0) {
                 currentNode = currentNode->left;
             }
@@ -91,11 +91,11 @@ void InsertInTreeNode(Tree* tree, TreeNode* newNode) { //вставка подчасти дерева
         }
     }
 }
-void InsertTreeValueByKey(Tree* tree, KeyType key, ValueType value) {//вставка ассоциативного элемента в дерево по ключу
+void InsertTreeValueByKey(Tree* tree, KeyType key, ValueType value) {//РІСЃС‚Р°РІРєР° Р°СЃСЃРѕС†РёР°С‚РёРІРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РІ РґРµСЂРµРІРѕ РїРѕ РєР»СЋС‡Сѓ
     TreeNode* node = InitTreeNode(key, value);
     InsertInTreeNode(tree, node);
 }
-char* GenerateString(int size) {//моя обычная генерация строки из алфавита строчных букв
+char* GenerateString(int size) {//РјРѕСЏ РѕР±С‹С‡РЅР°СЏ РіРµРЅРµСЂР°С†РёСЏ СЃС‚СЂРѕРєРё РёР· Р°Р»С„Р°РІРёС‚Р° СЃС‚СЂРѕС‡РЅС‹С… Р±СѓРєРІ
     char Arr[26] = "abcdefghijklmnopqrstuvwxyz";
     char* someKey = (char*)malloc((size + 1) * sizeof(char));
     for (int i = 0; i < size; i++) {
@@ -104,15 +104,15 @@ char* GenerateString(int size) {//моя обычная генерация строки из алфавита строч
     someKey[size] = 0;
     return someKey;
 }
-void FreeTreeNode(TreeNode* node){ //высвобождение памяти подчасти дерева
+void FreeTreeNode(TreeNode* node){ //РІС‹СЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё РїРѕРґС‡Р°СЃС‚Рё РґРµСЂРµРІР°
     free(node->key);
     free(node->value);
     free(node);
 }
-void DeleteTreeNodeByKey(Tree* tree, KeyType key) {//деструктор Tree*    
- //используем поиск по ключу, выполняем условия:  если left и right указывают на NULL, то это крайний и его надо стереть, если всего лишь один 
- //из указателей равен 0, то кидаем родителю ссылку на следующий элемент, а следующий на родителя если не крайний узел - заходим по ссылке в
- //правое поддерево и ищем минимальный элемент и его ставим на место удаляемого
+void DeleteTreeNodeByKey(Tree* tree, KeyType key) {   
+ //РёСЃРїРѕР»СЊР·СѓРµРј РїРѕРёСЃРє РїРѕ РєР»СЋС‡Сѓ, РІС‹РїРѕР»РЅСЏРµРј СѓСЃР»РѕРІРёСЏ:  РµСЃР»Рё left Рё right СѓРєР°Р·С‹РІР°СЋС‚ РЅР° NULL, С‚Рѕ СЌС‚Рѕ РєСЂР°Р№РЅРёР№ Рё РµРіРѕ РЅР°РґРѕ СЃС‚РµСЂРµС‚СЊ, РµСЃР»Рё РІСЃРµРіРѕ Р»РёС€СЊ РѕРґРёРЅ 
+ //РёР· СѓРєР°Р·Р°С‚РµР»РµР№ СЂР°РІРµРЅ 0, С‚Рѕ РєРёРґР°РµРј СЂРѕРґРёС‚РµР»СЋ СЃСЃС‹Р»РєСѓ РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚, Р° СЃР»РµРґСѓСЋС‰РёР№ РЅР° СЂРѕРґРёС‚РµР»СЏ РµСЃР»Рё РЅРµ РєСЂР°Р№РЅРёР№ СѓР·РµР» - Р·Р°С…РѕРґРёРј РїРѕ СЃСЃС‹Р»РєРµ РІ
+ //РїСЂР°РІРѕРµ РїРѕРґРґРµСЂРµРІРѕ Рё РёС‰РµРј РјРёРЅРёРјР°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚ Рё РµРіРѕ СЃС‚Р°РІРёРј РЅР° РјРµСЃС‚Рѕ СѓРґР°Р»СЏРµРјРѕРіРѕ
     TreeNode* trash = SearchValueByKey(tree, key);
     if (trash == NULL) {
         return 0;
@@ -132,17 +132,17 @@ void DeleteTreeNodeByKey(Tree* tree, KeyType key) {//деструктор Tree*
     }
     else if (trash->left == NULL || trash->right == NULL) {
         if (trash->parent == NULL) {
-            if (trash->left == NULL) {//есть элемент справа
+            if (trash->left == NULL) {//РµСЃС‚СЊ СЌР»РµРјРµРЅС‚ СЃРїСЂР°РІР°
                 tree->root = trash->right;
                 trash->right->parent = 0;
             }
-            else {//есть элемент слева
+            else {//РµСЃС‚СЊ СЌР»РµРјРµРЅС‚ СЃР»РµРІР°
                 tree->root = trash->left;
                 trash->left->parent = 0;
             }
         }
         else {
-            if (trash->left == NULL) {//есть элемент справа
+            if (trash->left == NULL) {//РµСЃС‚СЊ СЌР»РµРјРµРЅС‚ СЃРїСЂР°РІР°
                 if (trash->parent->left == trash) {
                     trash->parent->left = trash->right;
                     trash->right->parent = trash->parent;
@@ -152,7 +152,7 @@ void DeleteTreeNodeByKey(Tree* tree, KeyType key) {//деструктор Tree*
                     trash->right->parent = trash->parent;
                 }
             }
-            else {//есть элемент слева
+            else {//ГҐГ±ГІГј ГЅГ«ГҐГ¬ГҐГ­ГІ Г±Г«ГҐГўГ 
                 if (trash->parent->left == trash) {
                     trash->parent->left = trash->left;
                     trash->left->parent = trash->parent;
@@ -195,8 +195,8 @@ void DeleteTreeNodeByKey(Tree* tree, KeyType key) {//деструктор Tree*
     }
     FreeTreeNode(trash);
 }
-void TreeDelete(Tree* tree) {
-    while (tree->root) { //удалим всё используя поиск по ключу, подставка текущего ключа означает удлаение текущей подчасти дерева
+void TreeDelete(Tree* tree) {//РґРµСЃС‚СЂСѓРєС‚РѕСЂ Tree
+    while (tree->root) {//СѓРґР°Р»РёРј РІСЃС‘ РёСЃРїРѕР»СЊР·СѓСЏ РїРѕРёСЃРє РїРѕ РєР»СЋС‡Сѓ, РїРѕРґСЃС‚Р°РІРєР° С‚РµРєСѓС‰РµРіРѕ РєР»СЋС‡Р° РѕР·РЅР°С‡Р°РµС‚ СѓРґР»Р°РµРЅРёРµ С‚РµРєСѓС‰РµР№ РїРѕРґС‡Р°СЃС‚Рё РґРµСЂРµРІР°
         DeleteTreeNodeByKey(tree, tree->root->key);
     }
 }
